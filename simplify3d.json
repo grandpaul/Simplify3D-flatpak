@@ -1,0 +1,93 @@
+{
+    "app-id": "com.ucrobotics.Simplify3D",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.20",
+    "sdk": "org.gnome.Sdk",  
+    "command": "runS3DInstaller.sh",
+    "finish-args": [
+	"--share=network",
+	"--share=ipc",
+	"--socket=x11",
+	"--socket=pulseaudio",
+	"--socket=system-bus",
+	"--socket=session-bus",
+	"--filesystem=home",
+	"--device=dri",
+	"--device=all",
+	"--allow=devel"
+    ],
+    "writable-sdk": true,
+    "rename-desktop-file": "Install Simplify3D Software.desktop",
+    "modules": [
+	{
+	    "name": "Simplify3D",
+	    "sources": [
+		{
+		    "type": "archive",
+		    "path": "Simplify3D-3.1.1-linux-x64-installer.zip"
+		},
+		{
+		    "type": "script",
+		    "commands": [
+			"echo all: > Makefile",
+			"echo >> Makefile",
+			"echo install: >> Makefile"
+		    ],
+		    "dest-filename": "configure"
+		},
+		{
+		    "type": "script",
+		    "commands": [
+			"mkdir -p /var/lib",
+			"mkdir -p /opt/Simplify3D-3.1.1",
+			"cp -f /app/lib/libGLU*.so.* /opt/Simplify3D-3.1.1",
+			"cp -f /app/lib/libusb-*.so.* /opt/Simplify3D-3.1.1",
+			"(echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo y;echo;echo;echo n) | env DISPLAY=\"\" /app/bin/Simplify3D-3.1.1-linux-x64-installer.run",
+			"cd /opt/Simplify3D-3.1.1",
+			"./LaunchScript.sh"
+		    ],
+		    "dest-filename": "runS3DInstaller.sh"
+		},
+		{
+		    "type": "file",
+		    "path": "Install Simplify3D Software.desktop",
+		    "dest-filename": "Install Simplify3D Software.desktop"
+		}
+	    ],
+	    "no-autogen": true,
+	    "no-make-install": true,
+	    "no-parallel-make": true,
+	    "buildsystem": "autotools",
+	    "post-install": [
+		"mkdir -p /app/bin",
+		"mkdir -p /app/share/applications",
+		"cp -f Simplify3D-3.1.1-linux-x64-installer.run /app/bin",
+		"cp -f runS3DInstaller.sh /app/bin",
+		"cp -f Install*.desktop /app/share/applications"
+	    ]
+	},
+	{
+	    "name": "libglu",
+	    "sources": [
+		{
+		    "type":"archive",
+		    "url":"https://mesa.freedesktop.org/archive/glu/glu-9.0.0.tar.bz2",
+		    "sha256":"1f7ad0d379a722fcbd303aa5650c6d7d5544fde83196b42a73d1193568a4df12"
+		}
+	    ]
+	},
+	{
+	    "name": "libusb-1.0",
+	    "sources": [
+		{
+		    "type": "archive",
+		    "url": "https://downloads.sourceforge.net/libusb/libusb-1.0/libusb-1.0.21/libusb-1.0.21.tar.bz2",
+		    "sha256": "7dce9cce9a81194b7065ee912bcd55eeffebab694ea403ffb91b67db66b1824b"
+		}
+	    ],
+	    "config-opts": [
+		"--enable-udev=no"
+	    ]
+	}
+    ]
+}
