@@ -42,7 +42,7 @@
 			"mkdir -p /opt/Simplify3D-3.1.1",
 			"cp -f /app/lib/libGLU*.so.* /opt/Simplify3D-3.1.1",
 			"cp -f /app/lib/libusb-*.so.* /opt/Simplify3D-3.1.1",
-			"(echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo y;echo;echo;echo n) | env DISPLAY=\"\" /app/bin/Simplify3D-3.1.1-linux-x64-installer.run",
+			"(echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo;echo y;echo;echo;echo n) | env LC_ALL=en_US.UTF-8 DISPLAY=\"\" /app/bin/Simplify3D-3.1.1-linux-x64-installer.run",
 			"cd /opt/Simplify3D-3.1.1",
 			"./LaunchScript.sh"
 		    ],
